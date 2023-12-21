@@ -1,0 +1,607 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== BOXICONS ===============-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+       
+
+        {% comment %} j query  {% endcomment %}.
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!--=============== CSS ===============-->
+        {% comment %} <link rel="stylesheet" href="assets/css/styles.css"> {% endcomment %}
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
+
+
+        <title>Responsive Modal Popup</title>
+        <style>
+            #drop-area {
+                width: 300px;
+                height: 200px;
+                {% comment %} border: 2px dashed #ccc; {% endcomment %}
+                text-align: center;
+                line-height: 200px;
+                cursor: pointer;
+              }
+              
+              .toggle-checkbox {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+              }
+              
+              .toggle-slot {
+                font-size: 10px;
+                position: relative;
+                height: 3.5em;
+                width: 7em;
+                border: 0px solid transparent;
+                border-radius: 10em;
+                background-color: white;
+                transition: background-color 250ms;
+              }
+              
+              .toggle-checkbox:checked ~ .toggle-slot {
+                background-color: #374151;
+              }
+              
+              .toggle-button {
+                transform: translate(0.3em, 0.25em);
+                position: absolute;
+                height: 3em;
+                width: 3em;
+                border-radius: 50%;
+                background-color: #ffeccf;
+                box-shadow: inset 0px 0px 0px 0.75em #ffbb52;
+                transition: background-color 250ms, border-color 250ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+              }
+              
+              .toggle-checkbox:checked ~ .toggle-slot .toggle-button {
+                background-color: #485367;
+                box-shadow: inset 0px 0px 0px 0.75em white;
+                transform: translate(3.65em, 0.25em);
+              }
+              
+              .sun-icon {
+                position: absolute;
+                height: 6em;
+                width: 6em;
+                color: #ffbb52;
+              }
+              
+              .sun-icon-wrapper {
+                position: absolute;
+                height: 6em;
+                width: 6em;
+                opacity: 1;
+                transform: translate(2em, 2em) rotate(15deg);
+                transform-origin: 50% 50%;
+                transition: opacity 150ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+              }
+              
+              .toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper {
+                opacity: 0;
+                transform: translate(3em, 2em) rotate(0deg);
+              }
+              
+              .moon-icon {
+                position: absolute;
+                height: 6em;
+                width: 6em;
+                color: white;
+              }
+              
+              .moon-icon-wrapper {
+                position: absolute;
+                height: 6em;
+                width: 6em;
+                opacity: 0;
+                transform: translate(11em, 2em) rotate(0deg);
+                transform-origin: 50% 50%;
+                transition: opacity 150ms, transform 500ms cubic-bezier(.26,2.5,.46,.71);
+              }
+              
+              .toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper {
+                opacity: 1;
+                transform: translate(2em, 2em) rotate(-15deg);
+              }
+        </style>
+        <style>
+            
+
+          .form-container button:active {
+              scale: 0.95;
+            }
+            
+            .form-container .logo-container {
+              text-align: center;
+              font-weight: 600;
+              font-size: 18px;
+            }
+            
+            .form-container .form {
+              display: flex;
+              flex-direction: column;
+            }
+            
+            .form-container .form-group {
+              display: flex;
+              flex-direction: column;
+              gap: 2px;
+            }
+            
+            .form-container .form-group label {
+              display: block;
+              margin-bottom: 5px;
+            }
+            
+            .form-container .form-group input {
+              width: 100%;
+              padding: 12px 16px;
+              border-radius: 6px;
+              font-family: inherit;
+              border: 1px solid #ccc;
+            }
+            
+            .form-container .form-group input::placeholder {
+              opacity: 0.5;
+            }
+            
+            .form-container .form-group input:focus {
+              outline: none;
+              border-color: #1778f2;
+            }
+            
+            .form-container .form-submit-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-family: inherit;
+              color: #fff;
+              background-color: #212121;
+              border: none;
+              width: 100%;
+              padding: 12px 16px;
+              font-size: inherit;
+              gap: 8px;
+              margin: 12px 0;
+              cursor: pointer;
+              border-radius: 6px;
+              box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+            }
+            
+            .form-container .form-submit-btn:hover {
+              background-color: #313131;
+            }
+            
+            .form-container .link {
+              color: #1778f2;
+              text-decoration: none;
+            }
+            
+            .form-container .signup-link {
+              align-self: center;
+              font-weight: 500;
+            }
+            
+            .form-container .signup-link .link {
+              font-weight: 400;
+            }
+            
+            .form-container .link:hover {
+              text-decoration: underline;
+            }
+            
+            
+        </style>
+
+  {% comment %} radio  {% endcomment %}
+        <style>
+            
+
+              .radio-inputs {
+                  position: relative;
+                  display: flex;
+                  flex-wrap: wrap;
+                  border-radius: 0.5rem;
+                  background-color: #EEE;
+                  box-sizing: border-box;
+                  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+                  padding: 0.25rem;
+                  width: 150px;
+                  font-size: 14px;
+                }
+                
+                .radio-inputs .radio {
+                  flex: 1 1 auto;
+                  text-align: center;
+                }
+                
+                .radio-inputs .radio input {
+                  display: none;
+                }
+                
+                .radio-inputs .radio .name {
+                  display: flex;
+                  cursor: pointer;
+                  align-items: center;
+                  justify-content: center;
+                  border-radius: 0.5rem;
+                  border: none;
+                  padding: .5rem 0;
+                  color: rgba(51, 65, 85, 1);
+                  transition: all .15s ease-in-out;
+                }
+                
+                .radio-inputs .radio input:checked + .name {
+                  background-color: #fff;
+                  font-weight: 600;
+                }
+                        
+                
+                .myinputs{
+                  margin-bottom: 10px;
+                }
+                
+
+                .getwd {
+                  display: flex;
+                  align-items: center; /* Align items vertically */
+                  margin-bottom:25px;
+              }
+
+              .getwd > div {
+                  margin-right: 10px; /* Adjust the spacing between elements */
+                  color: var(--title-color);
+                  font-weight: 500;
+
+              }
+
+              .radio-inputs {
+                  display: flex;
+              }
+
+              /* Optional: Style radio buttons */
+              .radio {
+                  margin-right: 10px; /* Adjust spacing between radio buttons */
+              }
+
+              /* Additional styling if needed */
+              .radio-inputs label {
+                  display: flex;
+                  align-items: center;
+              }
+
+              .radio-inputs input[type="radio"] {
+                  margin-right: 5px; /* Adjust spacing between radio button and label */
+              }
+              .logo-container{
+                  margin:25px;
+              }
+
+        </style>
+
+        <style>
+          .StyledButton {
+            width: 150px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:  #100720;
+            border: none;
+            border-radius: 30px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+            font-size: 13.4px;
+            color: #fff;
+            letter-spacing: 0.8px;
+            transition: transform 0.2s ease-in-out;
+          }
+          
+          .StyledButton:hover {
+            transform: translateY(-2px);
+          }
+          
+        </style>
+        <style>
+          /* Style for drag and drop area */
+          {% comment %} #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+          } {% endcomment %}
+          
+          /* Style for popup form */
+          #popup-form {
+          
+
+
+
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            padding: 20px;
+            
+          
+           
+            
+          }
+          /* Hide the default file input */
+          .hiddenFileInput {
+            display: none;
+          }
+          
+          /* Style the label to match the button style and center horizontally */
+          .StyledButton {
+            display: inline-block;
+            width: 150px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 30px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+            font-size: 13.4px;
+            color: black!important;
+            letter-spacing: 0.8px;
+            transition: transform 0.2s ease-in-out;
+            text-align: center;
+            line-height: 40px; /* Center text vertically */
+            padding: 0; /* Remove padding for the label */
+          }
+          
+          /* Hover effect for the StyledButton */
+          .StyledButton:hover {
+            transform: translateY(-2px);
+          }
+          
+          /* Center the label text */
+          .StyledButton label {
+            display: inline-block;
+            width: 100%; /* Occupy full width */
+            text-align: center;
+          }
+          
+          
+
+        </style>
+
+       
+
+    </head>
+    <body>
+      <section>
+        <a href="/prof_login" > Login </a>
+      </section>
+       
+        <section class="modal container">
+            <button class="modal__button" id="open-modal">
+                <div name="file_upload" id="drop-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+                    Drop files here
+                </div>
+
+                 
+
+                  {% comment %} <button onclick="browseFiles()"  class="StyledButton">Browse Files</button> {% endcomment %}
+
+                  <label for="file-input-1" class="StyledButton">Click here
+                    <input type="file" id="file-input-1" class="hiddenFileInput">
+                </label>
+                
+                  {% comment %} <label class="StyledButton" for="file-input-1" class="styledLink">Click here</label>
+                  <input type="file" id="file-input-1" class="hiddenFileInput"> {% endcomment %}
+
+                  {% comment %} <input type="file" id="file-input-1" class="StyledButton"> {% endcomment %}
+
+
+            </button>
+
+            <div class="modal__container" id="modal-container">
+                <div class="modal__content">
+
+                 
+                    <div class="modal__close close-modal" title="Close">
+                        <i class='bx bx-x'></i>
+                    </div>
+
+                    {% comment %} <img src={% static 'assets/img/star-trophy.png'%} alt="" class="modal__img"> {% endcomment %}
+
+                    
+                    {% comment %} <p class="modal__description">Click the button to close</p> {% endcomment %}
+                     <h1 class="modal__title">Details</h1>
+              <form class="form" id="file-form" method="POST" enctype="multipart/form-data">
+
+                      {% csrf_token %}
+                          <div class="form-container" style="padding: 1rem 1.25rem;">
+                            
+                        
+
+                                <div class="form-group">
+                                  <input name="file_upload"  class= "myinputs" type="file" id="file-input-2">
+
+
+                                  
+
+                                  <input name="file_name" class= "myinputs" type="text" id="file-name" >
+
+                                  
+
+                                  <input class= "myinputs" type="text" id="email" name="cost" placeholder="Cost" required="">
+                                  <input class= "myinputs" type="text" id="email" name="message" placeholder="Message" required="">
+                                  
+                                  
+                              
+                                  
+
+                                    <div class="getwd myinputs">
+                                        <div>
+                                        Allow Without Pay
+                                        </div>
+                                        <div class="radio-inputs">
+                                            <label class="radio">
+                                              <input type="radio" name="radio" checked="">
+                                              <span class="name">No</span>
+                                            </label>
+                                            <label class="radio">
+                                              <input type="radio" name="radio">
+                                              <span class="name">Yes</span>
+                                            </label>
+                                                
+                                        </div>
+                                    </div>
+                                  
+
+                                </div>
+                        
+                        
+                            
+                          </div> 
+
+
+
+                    <button  class="modal__button modal__button-width">
+                        Get A Link
+                    </button>
+                    
+                    
+               
+              </form>
+          
+               
+
+
+                    <button class="modal__button-link close-modal">
+                        Close
+                    </button>
+
+                </div>
+            </div>  
+
+
+            
+           
+            
+           
+
+
+
+           
+           
+
+           
+              
+
+          <script>
+            // Function to handle file selection for both input fields
+            function handleFileSelect(file, inputNumber) {
+              const fileInput = document.getElementById(`file-input-${inputNumber}`);
+              const fileNameInput = document.getElementById('file-name');
+
+              // Set the selected file in the file input
+              fileInput.files = file;
+
+              // Set the selected file name in the text input field
+              if (file.length > 0) {
+                fileNameInput.value = file[0].name;
+
+                if (inputNumber === 1) {
+                  showModal(); // Open the second modal form
+                  const fileInput2 = document.getElementById('file-input-2');
+                  fileInput2.files = file; // Set the same file in the second input field
+                }
+              } else {
+                fileNameInput.value = '';
+              }
+            }
+
+            // Function to handle file drop for the drop area
+            function handleFileDrop(event, inputNumber) {
+              event.preventDefault();
+              const files = event.dataTransfer.files;
+              handleFileSelect(files, inputNumber);
+            }
+
+            // Event listeners for drag and drop area
+            const dropArea = document.getElementById('drop-area');
+            dropArea.addEventListener('dragover', (event) => {
+              event.preventDefault();
+              dropArea.style.border = '2px dashed #aaa';
+            });
+            dropArea.addEventListener('dragleave', (event) => {
+              event.preventDefault();
+              dropArea.style.border = '2px dashed #ccc';
+            });
+            dropArea.addEventListener('drop', (event) => {
+              handleFileDrop(event, 1);
+            });
+
+            // Event listener for file input change
+            const fileInput1 = document.getElementById('file-input-1');
+            fileInput1.addEventListener('change', (event) => {
+              const files = event.target.files;
+              handleFileSelect(files, 1);
+            });
+
+            // Function to open the second modal form
+            function showModal() {
+              const modalContainer = document.getElementById('modal-container');
+
+              if (modalContainer) {
+                modalContainer.classList.add('show-modal');
+              }
+            }
+
+            const fileInput2 = document.getElementById('file-input-2');
+            fileInput2.addEventListener('change', (event) => {
+              const files = event.target.files;
+              handleFileSelect(files, 2);
+            });
+
+
+            const closeBtn = document.querySelectorAll('.close-modal');
+            
+            function closeModal() {
+              const modalContainer = document.getElementById('modal-container');
+              modalContainer.classList.remove('show-modal');
+            }
+            closeBtn.forEach(c => c.addEventListener('click', closeModal));
+
+            // Rest of your existing code...
+
+          </script>
+
+
+
+           
+        
+
+
+
+
+
+
+
+
+
+
+        </section>
+
+        <!--=============== MAIN JS ===============-->
+        {% comment %} <script src="{% static 'assets/js/main.js' %}"></script> {% endcomment %}
+    </body>
+</html>

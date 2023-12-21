@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+       
+
+    {% comment %} j query  {% endcomment %}.
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!--=============== CSS ===============-->
+    {% comment %} <link rel="stylesheet" href="assets/css/styles.css"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Xsure  || SafeShare</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.png">
+
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="stylesheet" crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==">
+
+    <link href="{% static 'public/assets/css/theme.css' %}" rel="stylesheet" />
+
+    <link href=  "{% static 'public/vendors/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    <style> 
+      a {
+        color: white; /* Sets the link text color to white */
+        text-decoration: none; /* Removes the default underline */
+    }
+    </style>
+
+
+
+    {% comment %} drop  {% endcomment %}
+
+    <style>
+      #drop-area {
+          width: 300px;
+          height: 200px;
+          {% comment %} border: 2px dashed #ccc; {% endcomment %}
+          text-align: center;
+          line-height: 200px;
+          cursor: pointer;
+        }
+        
+        .toggle-checkbox {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+        
+        .toggle-slot {
+          font-size: 10px;
+          position: relative;
+          height: 3.5em;
+          width: 7em;
+          border: 0px solid transparent;
+          border-radius: 10em;
+          background-color: white;
+          transition: background-color 250ms;
+        }
+        
+        .toggle-checkbox:checked ~ .toggle-slot {
+          background-color: #374151;
+        }
+        
+        .toggle-button {
+          transform: translate(0.3em, 0.25em);
+          position: absolute;
+          height: 3em;
+          width: 3em;
+          border-radius: 50%;
+          background-color: #ffeccf;
+          box-shadow: inset 0px 0px 0px 0.75em #ffbb52;
+          transition: background-color 250ms, border-color 250ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+        }
+        
+        .toggle-checkbox:checked ~ .toggle-slot .toggle-button {
+          background-color: #485367;
+          box-shadow: inset 0px 0px 0px 0.75em white;
+          transform: translate(3.65em, 0.25em);
+        }
+        
+        .sun-icon {
+          position: absolute;
+          height: 6em;
+          width: 6em;
+          color: #ffbb52;
+        }
+        
+        .sun-icon-wrapper {
+          position: absolute;
+          height: 6em;
+          width: 6em;
+          opacity: 1;
+          transform: translate(2em, 2em) rotate(15deg);
+          transform-origin: 50% 50%;
+          transition: opacity 150ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+        }
+        
+        .toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper {
+          opacity: 0;
+          transform: translate(3em, 2em) rotate(0deg);
+        }
+        
+        .moon-icon {
+          position: absolute;
+          height: 6em;
+          width: 6em;
+          color: white;
+        }
+        
+        .moon-icon-wrapper {
+          position: absolute;
+          height: 6em;
+          width: 6em;
+          opacity: 0;
+          transform: translate(11em, 2em) rotate(0deg);
+          transform-origin: 50% 50%;
+          transition: opacity 150ms, transform 500ms cubic-bezier(.26,2.5,.46,.71);
+        }
+        
+        .toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper {
+          opacity: 1;
+          transform: translate(2em, 2em) rotate(-15deg);
+        }
+  </style>
+  <style>
+      
+
+    .form-container button:active {
+        scale: 0.95;
+      }
+      
+      .form-container .logo-container {
+        text-align: center;
+        font-weight: 600;
+        font-size: 18px;
+      }
+      
+      .form-container .form {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .form-container .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      
+      .form-container .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      
+      .form-container .form-group input {
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-family: inherit;
+        border: 1px solid #ccc;
+      }
+      
+      .form-container .form-group input::placeholder {
+        opacity: 0.5;
+      }
+      
+      .form-container .form-group input:focus {
+        outline: none;
+        border-color: #1778f2;
+      }
+      
+      .form-container .form-submit-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: inherit;
+        color: #fff;
+        background-color: #212121;
+        border: none;
+        width: 100%;
+        padding: 12px 16px;
+        font-size: inherit;
+        gap: 8px;
+        margin: 12px 0;
+        cursor: pointer;
+        border-radius: 6px;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.084), 0px 2px 3px rgba(0, 0, 0, 0.168);
+      }
+      
+      .form-container .form-submit-btn:hover {
+        background-color: #313131;
+      }
+      
+      .form-container .link {
+        color: #1778f2;
+        text-decoration: none;
+      }
+      
+      .form-container .signup-link {
+        align-self: center;
+        font-weight: 500;
+      }
+      
+      .form-container .signup-link .link {
+        font-weight: 400;
+      }
+      
+      .form-container .link:hover {
+        text-decoration: underline;
+      }
+      
+      
+  </style>
+
+{% comment %} radio  {% endcomment %}
+  <style>
+      
+
+        .radio-inputs {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 0.5rem;
+            background-color: #EEE;
+            box-sizing: border-box;
+            box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+            padding: 0.25rem;
+            width: 150px;
+            font-size: 14px;
+          }
+          
+          .radio-inputs .radio {
+            flex: 1 1 auto;
+            text-align: center;
+          }
+          
+          .radio-inputs .radio input {
+            display: none;
+          }
+          
+          .radio-inputs .radio .name {
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            border: none;
+            padding: .5rem 0;
+            color: rgba(51, 65, 85, 1);
+            transition: all .15s ease-in-out;
+          }
+          
+          .radio-inputs .radio input:checked + .name {
+            background-color: #fff;
+            font-weight: 600;
+          }
+                  
+          
+          .myinputs{
+            margin-bottom: 10px;
+          }
+          
+
+          .getwd {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            margin-bottom:25px;
+        }
+
+        .getwd > div {
+            margin-right: 10px; /* Adjust the spacing between elements */
+            color: var(--title-color);
+            font-weight: 500;
+
+        }
+
+        .radio-inputs {
+            display: flex;
+        }
+
+        /* Optional: Style radio buttons */
+        .radio {
+            margin-right: 10px; /* Adjust spacing between radio buttons */
+        }
+
+        /* Additional styling if needed */
+        .radio-inputs label {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-inputs input[type="radio"] {
+            margin-right: 5px; /* Adjust spacing between radio button and label */
+        }
+        .logo-container{
+            margin:25px;
+        }
+
+  </style>
+
+  <style>
+    .StyledButton {
+      width: 150px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:  #100720;
+      border: none;
+      border-radius: 30px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+      font-size: 13.4px;
+      color: #fff;
+      letter-spacing: 0.8px;
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .StyledButton:hover {
+      transform: translateY(-2px);
+    }
+    
+  </style>
+  <style>
+    /* Style for drag and drop area */
+    {% comment %} #drop-area {
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    } {% endcomment %}
+    
+    /* Style for popup form */
+    #popup-form {
+    
+
+
+
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      
+      padding: 20px;
+      
+    
+     
+      
+    }
+    /* Hide the default file input */
+    .hiddenFileInput {
+      display: none;
+    }
+    
+    /* Style the label to match the button style and center horizontally */
+    .StyledButton {
+      display: inline-block;
+      width: 150px;
+      height: 40px;
+      background: white;
+      border: none;
+      border-radius: 30px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+      font-size: 13.4px;
+      color: black!important;
+      letter-spacing: 0.8px;
+      transition: transform 0.2s ease-in-out;
+      text-align: center;
+      line-height: 40px; /* Center text vertically */
+      padding: 0; /* Remove padding for the label */
+    }
+    
+    /* Hover effect for the StyledButton */
+    .StyledButton:hover {
+      transform: translateY(-2px);
+    }
+    
+    /* Center the label text */
+    .StyledButton label {
+      display: inline-block;
+      width: 100%; /* Occupy full width */
+      text-align: center;
+    }
+    
+    
+
+  </style>
+
+  <style>
+    .mydrop{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  </head>
+
+
+  <body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <nav class="navbar navbar-light sticky-top" data-navbar-darken-on-scroll="900">
+        <div class="container pt-2"><a class="navbar-brand" href="index.html"> <img src="assets/img/gallery/logo.png" alt="..." /></a>
+          <div class="navbar-nav ms-auto">
+            <button class="btn btn-secondary" > <a href="/prof_login">Login</a></button>
+          </div>
+        </div>
+      </nav>
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section class="mt-6">
+
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-9 col-lg-8 col-xl-5">
+              <h1 class="display-3 lh-sm">Say hello to Xsure,</h1>
+            </div>
+            <div class="col-md-9 col-xl-5">
+              <p class="fs-2">We Ensure: Freelancers Get Paid and ,Clients Receive Satisfactory Work </p>
+              <button class="btn btn-primary mt-3"><a href="/index">Know Us More</a></button>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+<section >
+<div class="mydrop">
+
+  
+    <button class="modal__button" id="open-modal">
+        <div name="file_upload" id="drop-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+            Drop files here
+        </div>
+
+         
+
+          {% comment %} <button onclick="browseFiles()"  class="StyledButton">Browse Files</button> {% endcomment %}
+
+          <label for="file-input-1" class="StyledButton">Click here
+            <input type="file" id="file-input-1" class="hiddenFileInput">
+        </label>
+        
+          {% comment %} <label class="StyledButton" for="file-input-1" class="styledLink">Click here</label>
+          <input type="file" id="file-input-1" class="hiddenFileInput"> {% endcomment %}
+
+          {% comment %} <input type="file" id="file-input-1" class="StyledButton"> {% endcomment %}
+
+
+    </button>
+
+    <div class="modal__container" id="modal-container">
+        <div class="modal__content">
+
+         
+            <div class="modal__close close-modal" title="Close">
+                <i class='bx bx-x'></i>
+            </div>
+
+            {% comment %} <img src={% static 'assets/img/star-trophy.png'%} alt="" class="modal__img"> {% endcomment %}
+
+            
+            {% comment %} <p class="modal__description">Click the button to close</p> {% endcomment %}
+             <h1 class="modal__title">Details</h1>
+      <form class="form" id="file-form" method="POST" enctype="multipart/form-data">
+
+              {% csrf_token %}
+                  <div class="form-container" style="padding: 1rem 1.25rem;">
+                    
+                
+
+                        <div class="form-group">
+                          <input name="file_upload"  class= "myinputs" type="file" id="file-input-2">
+
+
+                          
+
+                          <input name="file_name" class= "myinputs" type="text" id="file-name" >
+
+                          
+
+                          <input class= "myinputs" type="text" id="email" name="cost" placeholder="Cost" required="">
+                          <input class= "myinputs" type="text" id="email" name="message" placeholder="Message" required="">
+                          
+                          
+                      
+                          
+
+                            <div class="getwd myinputs">
+                                <div>
+                                Allow Without Pay
+                                </div>
+                                <div class="radio-inputs">
+                                    <label class="radio">
+                                      <input type="radio" name="radio" checked="">
+                                      <span class="name">No</span>
+                                    </label>
+                                    <label class="radio">
+                                      <input type="radio" name="radio">
+                                      <span class="name">Yes</span>
+                                    </label>
+                                        
+                                </div>
+                            </div>
+                          
+
+                        </div>
+                
+                
+                    
+                  </div> 
+
+
+
+            <button  class="modal__button modal__button-width">
+                Get A Link
+            </button>
+            
+            
+       
+      </form>
+  
+       
+
+
+            <button class="modal__button-link close-modal">
+                Close
+            </button>
+
+        </div>
+    </div>  
+    <br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+    <script>
+      // Function to handle file selection for both input fields
+      function handleFileSelect(file, inputNumber) {
+        const fileInput = document.getElementById(`file-input-${inputNumber}`);
+        const fileNameInput = document.getElementById('file-name');
+
+        // Set the selected file in the file input
+        fileInput.files = file;
+
+        // Set the selected file name in the text input field
+        if (file.length > 0) {
+          fileNameInput.value = file[0].name;
+
+          if (inputNumber === 1) {
+            showModal(); // Open the second modal form
+            const fileInput2 = document.getElementById('file-input-2');
+            fileInput2.files = file; // Set the same file in the second input field
+          }
+        } else {
+          fileNameInput.value = '';
+        }
+      }
+
+      // Function to handle file drop for the drop area
+      function handleFileDrop(event, inputNumber) {
+        event.preventDefault();
+        const files = event.dataTransfer.files;
+        handleFileSelect(files, inputNumber);
+      }
+
+      // Event listeners for drag and drop area
+      const dropArea = document.getElementById('drop-area');
+      dropArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        dropArea.style.border = '2px dashed #aaa';
+      });
+      dropArea.addEventListener('dragleave', (event) => {
+        event.preventDefault();
+        dropArea.style.border = '2px dashed #ccc';
+      });
+      dropArea.addEventListener('drop', (event) => {
+        handleFileDrop(event, 1);
+      });
+
+      // Event listener for file input change
+      const fileInput1 = document.getElementById('file-input-1');
+      fileInput1.addEventListener('change', (event) => {
+        const files = event.target.files;
+        handleFileSelect(files, 1);
+      });
+
+      // Function to open the second modal form
+      function showModal() {
+        const modalContainer = document.getElementById('modal-container');
+
+        if (modalContainer) {
+          modalContainer.classList.add('show-modal');
+        }
+      }
+
+      const fileInput2 = document.getElementById('file-input-2');
+      fileInput2.addEventListener('change', (event) => {
+        const files = event.target.files;
+        handleFileSelect(files, 2);
+      });
+
+
+      const closeBtn = document.querySelectorAll('.close-modal');
+      
+      function closeModal() {
+        const modalContainer = document.getElementById('modal-container');
+        modalContainer.classList.remove('show-modal');
+      }
+      closeBtn.forEach(c => c.addEventListener('click', closeModal));
+
+      // Rest of your existing code...
+
+    </script>
+  </div>
+</section>
+     
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      {% comment %} <section>
+       
+      
+
+
+        <div class="container"><img class="img-fluid" src="{% static 'public/assets/img/gallery/dashboard.png'%}" alt="Dashboard" />
+        </div>
+
+
+
+      
+
+        <!-- end of .container-->
+
+      </section> {% endcomment %}
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section>
+
+        <div class="container">
+          <div class="row mx-md-5 px-md-5 d-flex justify-content-evenly">
+            <div class="col-4 col-lg-auto mt-5 mt-lg-0">Drop Your File Here And See The Magic!</div>
+            
+          </div>
+          <div class="px-xl-8 px-md-7">
+            <hr class="mt-7 text-1000" />
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section>
+
+        <div class="container">
+          <h1 class="display-6 fw-semi-bold">How to use our Service</h1>
+          <p class="fs-2">Our this initiative is beneficial  for both clients and 
+            Freelancers ...</p>
+          <div class="row mb-4 mt-6">
+            <div class="col-md-6">
+              <div class="border rounded-1 border-700 h-100 features-items">
+                <div class="p-5"><img src="assets/img/gallery/dashboardicon.png" alt="Dashboard" style="width:48px;height:48px;" />
+                  <h3 class="pt-3 lh-base">Lorem ip adipiscing elit</h3>
+                  <p class="mb-0">A pseudo-Latin text used in web design, layout, and printing in place of things to emphasise layouts for previewing layouts and visual mockups.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="border rounded-1 border-700 h-100 features-items">
+                <div class="p-5"><img src="assets/img/gallery/comment.png" alt="Comment" style="width:48px;height:48px;" />
+                  <h3 class="pt-3 lh-base">Lorem ip adipiscing elit</h3>
+                  <p class="mb-0">A pseudo-Latin text used in web design, layout, and printing in place of things to emphasise layouts for previewing layouts and visual mockups.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="border rounded-1 border-700 h-100 features-items">
+                <div class="p-5"><img src="assets/img/gallery/trilored.png" alt="Tailored" style="width:48px;height:48px;" />
+                  <h3 class="pt-3 lh-base">Lorem ip adipiscing elit</h3>
+                  <p class="mb-0">A pseudo-Latin text used in web design, layout, and printing in place of things to emphasise layouts for previewing layouts and visual mockups.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="border rounded-1 border-700 h-100 features-items">
+                <div class="p-5"><img src="assets/img/gallery/statistics.png" alt="Statistic" style="width:48px;height:48px;" />
+                  <h3 class="pt-3 lh-base">Lorem ip adipiscing elit</h3>
+                  <p class="mb-0">A pseudo-Latin text used in web design, layout, and printing in place of things to emphasise layouts for previewing layouts and visual mockups.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="border rounded-1 border-700 h-100 features-items">
+                <div class="p-5"><img src="assets/img/gallery/profile.png" alt="Profiles" style="width:48px;height:48px;" />
+                  <h3 class="pt-3 lh-base">Lorem ip adipiscing elit</h3>
+                  <p class="mb-0">A pseudo-Latin text used in web design, layout, and printing in place of things to emphasise layouts for previewing layouts and visual mockups.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="border rounded-1 border-700 h-100 features-items">
+                <div class="p-5"><img src="assets/img/gallery/folder.png" alt="Folders" style="width:48px;height:48px;" />
+                  <h3 class="pt-3 lh-base">Lorem ip adipiscing elit</h3>
+                  <p class="mb-0">A pseudo-Latin text used in web design, layout, and printing in place of things to emphasise layouts for previewing layouts and visual mockups.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section class="mt-5">
+
+        <div class="container">
+          <div class="text-center">
+            <div class="p-5 bg-primary rounded-3">
+              <div class="py-3">
+                <h4 class="opacity-50 ls-2 lh-base fw-medium">Our</h4>
+                <h2 class="mt-3 fs-4 fs-sm-7 latter-sp-3 lh-base fw-semi-bold">Client Management System  Coming Soon</h2>
+              </div>
+              <div class="flex-center d-flex">
+                <button class="btn btn-info">Subscribe here<span class="fas fa-arrow-right"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section class="mt-5">
+
+        <div class="container">
+          <div class="text-center">
+            <p class="fs-2 ls-2">Xsure</p>
+            <h1 class="display-6 fw-semi-bold">How does it work?</h1>
+          </div>
+          <div class="row mt-6 flex-center justify-content-xl-evenly px-xl-5">
+            <div class="col-md-7 col-lg-6 order-md-1"><img class="w-100" src="assets/img/gallery/comment1.png" alt="..." /></div>
+            <div class="col-md-5 col-lg-4">
+              <h3 class="fs-xl-7 fs-lg-4 fs-md-3 mt-5 mt-md-0">How does it work?</h3>
+              <p class="fs-xl-1 ls-3 pe-xl-2">  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac libero sit amet lorem luctus venenatis.
+                Integer eu odio vitae velit vestibulum fermentum eget in massa. Ut eu libero id enim ullamcorper posuere.
+                Nunc non lacus ac risus consectetur f</p>
+            </div>
+          </div>
+          <div class="row mt-6 flex-center justify-content-xl-evenly px-xl-5">
+            <div class="col-md-7 col-lg-6 false"><img class="w-100" src="assets/img/gallery/comment2.png" alt="..." /></div>
+            <div class="col-md-5 col-lg-4">
+              <h3 class="fs-xl-7 fs-lg-4 fs-md-3 mt-5 mt-md-0">How does it work?</h3>
+              <p class="fs-xl-1 ls-3 pe-xl-2">  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac libero sit amet lorem luctus venenatis.
+                Integer eu odio vitae velit vestibulum fermentum eget in massa. Ut eu libero id enim ullamcorper posuere.
+                Nunc non lacus ac risus consectetur f</p>
+            </div>
+          </div>
+          <div class="row mt-6 flex-center justify-content-xl-evenly px-xl-5">
+            <div class="col-md-7 col-lg-6 order-md-1"><img class="w-100" src="assets/img/gallery/comment3.png" alt="..." /></div>
+            <div class="col-md-5 col-lg-4">
+              <h3 class="fs-xl-7 fs-lg-4 fs-md-3 mt-5 mt-md-0">How does it work?</h3>
+              <p class="fs-xl-1 ls-3 pe-xl-2">  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac libero sit amet lorem luctus venenatis.
+                Integer eu odio vitae velit vestibulum fermentum eget in massa. Ut eu libero id enim ullamcorper posuere.
+                Nunc non lacus ac risus consectetur f</p>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section>
+
+        <div class="container-lg">
+          <div class="text-center">
+            <p class="fs-2 ls-2">Our</p>
+            <h1 class="display-6 fw-semi-bold">Pricing</h1>
+          </div>
+          <div class="row flex-center">
+            <div class="col-sm-9 col-md-4 mt-3">
+              <div class="py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-md-9">
+                <p class="fs-2 ls-2">FREE</p>
+                <h1 class="display-4 ls-3"><span class="text-600">$</span>0</h1>
+                <hr class="hr mt-6 text-1000" />
+                <ul class="mt-5 ps-0">
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj </li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                </ul>
+                <button class="btn btn-gray mt-4">Get Started <span class="fas fa-arrow-right"></span></button>
+              </div>
+            </div>
+            <div class="col-sm-9 col-md-4 mt-3">
+              <div class="py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-0">
+                <p class="fs-2 ls-2">BASIC</p>
+                <h1 class="display-4 ls-3"><span class="text-600">$</span>23</h1>
+                <hr class="hr mt-6 text-1000" />
+                <ul class="mt-5 ps-0">
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj </li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                </ul>
+                <button class="btn btn-gray mt-4">Get Started <span class="fas fa-arrow-right"></span></button>
+              </div>
+            </div>
+            <div class="col-sm-9 col-md-4 mt-3">
+              <div class="py-5 px-4 px-md-3 px-lg-4 rounded-1 bg-800 plans-cards mt-md-9">
+                <p class="fs-2 ls-2">PREMIUM</p>
+                <h1 class="display-4 ls-3"><span class="text-600">$</span>59</h1>
+                <hr class="hr mt-6 text-1000" />
+                <ul class="mt-5 ps-0">
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj </li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                  <li class="pricing-lists"><i class="fas fa-check-circle fa-lg me-2 text-600"></i>lorem kjjcknjk ewkjcewkj</li>
+                </ul>
+                <button class="btn btn-gray mt-4">Get Started <span class="fas fa-arrow-right"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section>
+
+        <div class="container">
+          <div class="text-center text-xl-start">
+            <div class="p-5 bg-primary rounded-3 d-flex flex-column justify-content-xl-between flex-xl-row">
+              <div class="py-3">
+                <h4 class="opacity-50 ls-2 lh-base fw-medium">READY TO START</h4>
+                <h2 class="mt-3 fs-4 fs-sm-7 latter-sp-3 lh-base fw-semi-bold">Start Your Journey Here With Safe Payments </h2>
+              </div>
+              <div class="flex-center d-flex">
+                <button class="btn btn-info">Get Started <span class="fas fa-arrow-right"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section class="bg-secondary">
+
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-3 text-center text-xl-start"><a href="#!"><img class="footer-img me-xl-5 me-3" src="assets/img/gallery/facebook-line1.svg" alt="fb" style="width:20px;height:20px;" /></a><a href="#!"><img class="footer-img me-xl-5 me-3" src="assets/img/gallery/linkedin-line1.svg" alt="in" style="width:20px;height:20px;" /></a><a href="#!"><img class="footer-img me-xl-5 me-3" src="assets/img/gallery/twitter-line1.svg" alt="twitter" style="width:20px;height:20px;" /></a><a href="#!"><img class="footer-img me-xl-5 me-3" src="assets/img/gallery/instagram-line1.svg" alt="instragram" style="width:20px;height:20px;" /></a>
+            </div>
+            <div class="col-xl-4 pt-2 pt-xl-0">
+              <p class="mb-0 text-center text-xl-end"><a class="text-300 text-decoration-none footer-link" href="#!"> Terms &amp; conditon </a><a class="text-300 text-decoration-none footer-link ps-4" href="#!">Privacy Policy </a>
+              </p>
+            </div>
+            <div class="col-xl-5 pt-2 pt-xl-0 text-center text-xl-end">
+              <p class="mb-0">&copy; Made with Prem ❤️ by <a class="text-300" href="https://nicemesh.netlify.com/" target="_blank"> Rohan Kumar</a></p>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="{% static 'public/vendors/@popperjs/popper.min.js' %}"></script>
+    <script src="{% static 'public/vendors/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'public/vendors/is/is.min.js' %}"></script>
+    <script src="{% static 'public/vendors/swiper/swiper-bundle.min.js' %}"></script>
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+    <script src="{% static 'public/assets/js/theme.js' %}"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400&amp;display=swap" rel="stylesheet">
+  </body>
+
+</html>

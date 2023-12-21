@@ -1,0 +1,128 @@
+<div id="step1" style="display: none;">
+  <form class="form" id="formStep1" method="POST">
+    {% csrf_token %}
+        <h1 class="modal__title">Details</h1>
+        
+        <div class="form-container" style="padding: 1rem 1.25rem;">
+        
+            <div class="form-group">
+                <input class="myinputs" type="text" id="file-name-field" name="file_name" placeholder="File Name" required="">
+                <input class="myinputs" type="text" id="email" name="email" placeholder="Cost" required="">
+                <input class="myinputs" type="text" id="message" name="message" placeholder="Message" required="">
+    
+                <div class="getwd myinputs">
+                    <div>Allow Without Pay</div>
+                    <div class="radio-inputs">
+                        <label class="radio">
+                            <input type="radio" name="radio" checked="">
+                            <span class="name">No</span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="radio">
+                            <span class="name">Yes</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <button type="button" onclick="nextStep(1)" id="step1-submit-button" class="modal__button modal__button-width">Get A Link</button>
+  </form>
+</div>
+
+<div id="step2" style="display: none;">
+  <form class="form" id="formStep2" method="POST">
+      {% csrf_token %}
+      <h1 class="modal__title">Details</h1>
+      
+      <div class="form-container" style="padding: 1rem 1.25rem;">
+          <div class="form-group">
+              <input class="myinputs" type="text" id="phone-number" name="phone-number" placeholder="Phone number" required="">
+          </div>
+      </div>
+  
+      <button type="button" onclick="nextStep(2)" id="submit-step-2" class="modal__button modal__button-width">Get A Link</button>
+  </form>
+</div>
+
+<div id="step3" style="display: none;">
+  <form class="form" id="formStep3" method="POST">
+      {% csrf_token %}
+      <h1 class="modal__title">Details</h1>
+      
+      <div class="form-container" style="padding: 1rem 1.25rem;">
+          <div class="form-group">
+              <input class="myinputs" type="text" name="otp" placeholder="Enter OTP" required="">
+          </div>
+      </div>
+  
+      <button type="submit" id="formStep3" value="Submit" class="modal__button modal__button-width">Submit</button>
+  </form>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  function nextStep(step) {
+    // Get form data based on the current step
+    let formData = {};
+    if (step === 1) {
+        const formStep1 = document.getElementById('formStep1');
+        formData = new FormData(formStep1);
+    } else if (step === 2) {
+        const formStep2 = document.getElementById('formStep2');
+        formData = new FormData(formStep2);
+    } else if (step === 3) {
+        const formStep3 = document.getElementById('formStep3');
+        formData = new FormData(formStep3);
+    }
+
+    // Send form data to the backend via AJAX (replace 'your_backend_url' with your actual backend URL)
+    fetch('your_backend_url', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            // Move to the next step by hiding current step and showing the next step
+            document.getElementById('step' + step).style.display = 'none';
+            document.getElementById('step' + (step + 1)).style.display = 'block';
+        } else {
+            // Handle error if needed
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle error if needed
+    });
+  }
+</script>
+<script>
+    let currentStep = 1;
+    
+    function showStep(step) {
+      document.getElementById('step' + step).style.display = 'block';
+    }
+    
+    function hideStep(step) {
+      document.getElementById('step' + step).style.display = 'none';
+    }
+    
+    function nextStep() {
+      if (currentStep < 3) {
+          hideStep(currentStep);
+          currentStep++;
+          showStep(currentStep);
+      } else if (currentStep === 3) {
+          // If on the third step, submit the form
+          document.getElementById('formStep3').submit();
+      }
+    }
+    
+    // Show the first step initially
+    document.addEventListener('DOMContentLoaded', function() {
+      showStep(currentStep);
+    });
+</script>

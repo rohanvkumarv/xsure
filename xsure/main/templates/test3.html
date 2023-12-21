@@ -1,0 +1,276 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Boxes</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .container-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .box-1,
+  .box-2 {
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    background-color: #3498db;
+    border-radius: 5px;
+  }
+  
+
+  </style>
+</head>
+<body>
+  <div class="container-1">
+    <div class="box-1"></div>
+    <div class="box-2"></div>
+  </div>
+</body>
+</html> {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Boxes</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body{
+        margin:0px;
+        background-color:whitesmoke;
+      }
+      #main{
+        height:500px;
+        width:800px;
+        background:white;
+        box-shadow: 15px 15px 15px rgba(0,0,0,.1);
+        border-radius: 25px;
+        position: relative;
+        overflow: hidden;
+        top:0px;
+        left:50%;
+        transform:translateX(-50%);
+      }
+      #img{
+        width:100px;
+        position:relative;
+        top:50px;
+        left:100px;
+        transform: rotate(20deg);
+        animation:anim 0.5s forwards linear,anim2 0.2s forwards linear 0.5s,anim3 0.2s forwards linear 0.7s;
+        transform-origin: center center;
+        z-index: 9999;
+      }
+      @keyframes anim {
+        0%{
+          transform: rotate(20deg);
+          top:50px;
+        }
+        90%{
+          transform: rotate(10deg);
+          top:80px;
+        }
+        100%{
+          transform: rotate(0deg);
+          top:120px;
+        }
+      }
+      @keyframes anim2 {
+        0%{
+          transform: rotate(0deg);
+          top:120px;
+          transform-origin: center center;
+        }
+        100%{
+          transform: rotate(-8deg);
+          top:120px;
+          transform-origin: left bottom;
+        }
+      }
+      @keyframes anim3 {
+        0%{
+          transform: rotate(-8deg);
+          top:120px;
+          transform-origin: left bottom;
+        }
+        70%{
+          transform: rotate(5deg);
+          top:120px;
+          transform-origin: right bottom;
+        }
+        100%{
+          transform: rotate(0deg);
+          top:120px;
+          transform-origin: center center;
+        }
+      }
+      #box{
+        height: 200px;
+        width: 100%;
+        background:linear-gradient(45deg,#ee9ca7,#ffdde1);
+        position: absolute;
+        top:0px;
+        border-radius: 25px;
+      }
+      #msg1,
+      #msg2,
+      #msg3{
+        font-family: arial;
+        font-size: 12px;
+        color:#121212;
+        font-weight: 600;
+        position: absolute;
+        top:300px;
+        left:25px;
+        opacity: 0;
+        animation: anim4 .5s forwards linear 0.6s;
+      }
+      #msg2{
+        color:gray;
+        font-weight: normal;
+        top:330px;
+        left:20px;
+        animation: anim5 .5s forwards linear 0.7s;
+      }
+      @keyframes anim4 {
+        from{
+          left:25px;
+          opacity: 0;
+        }
+        to{
+          left:30px;
+          opacity: 1;
+        }
+      }
+      @keyframes anim5 {
+        from{
+          left:20px;
+          opacity: 0;
+        }
+        to{
+          left:30px;
+          opacity: 1;
+        }
+      }
+      #line{
+        height: 2px;
+        width:0px;
+        background-color: silver;
+        position: absolute;
+        top:360px;
+        left:25px;
+        animation: anim6 0.9s forwards linear 0.7s;
+      }
+      @keyframes anim6 {
+        from{
+          width:0px;
+        }
+        to{
+          width:250px;
+        }
+      }
+      #msg3{
+        color:gray;
+        font-weight: normal;
+        top:380px;
+        left:15px;
+        animation: anim7 .5s forwards linear 0.9s;
+      }
+      @keyframes anim7 {
+        from{
+          left:15px;
+          opacity: 0;
+        }
+        to{
+          left:30px;
+          opacity: 1;
+        }
+      }
+      #price,
+      #price2{
+        font-family: arial;
+        font-size: 12px;
+        position: absolute;
+        opacity: 0;
+        color:gray;
+        top:330px;
+        left:220px;
+        animation: anim8 .5s forwards linear 0.7s;
+      }
+      @keyframes anim8 {
+        from{
+          left:220px;
+          opacity: 0;
+        }
+        to{
+          left:230px;
+          opacity: 1;
+        }
+      }
+      #price2{
+        font-weight: bold;
+        font-size: 14px;
+        top:380px;
+        animation: anim8 .5s forwards linear 0.9s;
+      }
+      button{
+        position: absolute;
+        top:500px;
+        left:0px;
+        border:none;
+        outline:none;
+        width:calc(100% - 40px);
+        height: 40px;
+        border-radius: 10px;
+        background:linear-gradient(45deg,#ee9ca7,#ffdde1);
+        font-family: arial;
+        font-size: 14px;
+        color:white;
+        margin: 0px 0px 0px 20px;
+        animation: anim9 1s forwards linear .8s;
+      }
+      @keyframes anim9 {
+        from{
+          top:500px;
+        }
+        to{
+          top:430px;
+        }
+      }
+      
+
+  </style>
+</head>
+<body>
+    <div id="main">
+        <img src="https://res.cloudinary.com/davims6ce/image/upload/v1597759350/coffee_cup_sxaokv.png" id="img"/>
+        <div id="box">
+          
+        </div>
+        <div id="info">
+          <div id="msg1">Your Order</div>
+          <div id="msg2">2x Cold Coffee</div>
+          <div id="price">$15.00</div>
+          <div id="line"></div>
+          <div id="msg3">Total:</div>
+          <div id="price2"> {{ project.cost }}</div>
+        </div>
+        <button>PAY NOW</button>
+      </div>
+</body>
+</html>

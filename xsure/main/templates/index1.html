@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Selector with Popup Form</title>
+  <style>
+    /* Style for drag and drop area */
+    #drop-area {
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    
+    /* Style for popup form */
+    #popup-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #f9f9f9;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <div id="drop-area">
+    <p>Drag & Drop files here</p>
+  </div>
+  
+  <input type="file" id="file-input-1">
+  
+  
+  <!-- Popup form containing the second file input field -->
+  <div id="popup-form">
+    <h2>Popup Form</h2>
+    <form>
+      <input type="text" id="file-name" readonly>
+
+      <input type="file" id="file-input-2">
+      <button type="button" onclick="closePopup()">Close</button>
+    </form>
+  </div>
+  
+  <script>
+    // Function to handle file selection for both input fields
+    function handleFileSelect(file, inputNumber) {
+      const fileInput = document.getElementById(`file-input-${inputNumber}`);
+      const fileNameInput = document.getElementById('file-name');
+
+      // Set the selected file in the file input
+      fileInput.files = file;
+      
+      // Set the selected file name in the text input field
+      if (file.length > 0) {
+        fileNameInput.value = file[0].name;
+        
+        if (inputNumber === 1) {
+          openPopup(); // Open the popup form only if the first input field is used
+          const fileInput2 = document.getElementById('file-input-2');
+          fileInput2.files = file; // Set the same file in the second input field
+        }
+      } else {
+        fileNameInput.value = '';
+      }
+    }
+
+    // Function to handle file drop for the drop area
+    function handleFileDrop(event, inputNumber) {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      handleFileSelect(files, inputNumber);
+    }
+
+    // Event listeners for drag and drop area
+    const dropArea = document.getElementById('drop-area');
+    dropArea.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      dropArea.style.border = '2px dashed #aaa';
+    });
+    dropArea.addEventListener('dragleave', (event) => {
+      event.preventDefault();
+      dropArea.style.border = '2px dashed #ccc';
+    });
+    dropArea.addEventListener('drop', (event) => {
+      handleFileDrop(event, 1);
+    });
+
+    // Event listener for file input change
+    const fileInput1 = document.getElementById('file-input-1');
+    fileInput1.addEventListener('change', (event) => {
+      const files = event.target.files;
+      handleFileSelect(files, 1);
+    });
+
+    // Function to open the popup form
+    function openPopup() {
+      const popupForm = document.getElementById('popup-form');
+      popupForm.style.display = 'block';
+    }
+
+    // Function to close the popup form
+    function closePopup() {
+      const popupForm = document.getElementById('popup-form');
+      popupForm.style.display = 'none';
+    }
+
+    // Event listener for file input in the popup form
+    const fileInput2 = document.getElementById('file-input-2');
+    fileInput2.addEventListener('change', (event) => {
+      const files = event.target.files;
+      handleFileSelect(files, 2);
+    });
+  </script>
+</body>
+</html>

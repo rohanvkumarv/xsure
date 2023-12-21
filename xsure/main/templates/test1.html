@@ -1,0 +1,717 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Webpage</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Adjust the height as needed */
+    }
+    
+    .card {
+      display: flex;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 300px; /* Set your desired width */
+    }
+    
+    .left-side,
+    .right-side {
+      flex: 1;
+      padding: 10px;
+    }
+    
+    .item {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    /* For responsiveness */
+    @media (max-width: 768px) {
+      .card {
+        flex-direction: column;
+        max-width: 100%; /* Adjust width for responsiveness */
+      }
+    }
+    .left-details,
+.right-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  margin-bottom: 5px;
+}
+    
+    
+  </style> 
+</head>
+<body>
+
+
+  <div class="container">
+    <div class="card">
+      <div class="left-side">
+        <div class="item">Left Content</div>
+        <div class="left-details">
+          <div class="item">Filename:</div>
+          <div class="item">Cost:</div>
+          <div class="item">Owner:</div>
+          <!-- Add other names as needed -->
+        </div>
+      </div>
+      <div class="right-side">
+        <div class="item">Right Content</div>
+        <div class="right-details">
+          <div class="value">Your Filename Value</div>
+          <div class="value">Your Cost Value</div>
+          <div class="value">Owner's Name</div>
+          <!-- Add corresponding values as needed -->
+        </div>
+        <!-- Add your right content here -->
+      </div>
+    </div>
+  </div>
+
+  
+
+  
+</body>
+</html> {% endcomment %}
+{% comment %} <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Webpage</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      height: 100vh;
+    }
+    
+    .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #000;
+    }
+    
+    .box1 {
+      width: 100px;
+      height: 100px;
+      grid-column: 4 / span 3; /* Starting from column 4 to column 6 */
+    }
+    
+    .box2 {
+      width: 100px;
+      height: 200px;
+      grid-column: 7 / span 3; /* Starting from column 7 to column 9 */
+    }
+    
+    /* Vertical centering */
+    .container {
+      align-items: center;
+    }
+    
+</style> 
+</head>
+<body>
+<div class="container">
+  <div class="box box1">Box 1</div>
+  <div class="box box2">Box 2</div>
+</div>
+</body>
+</html> {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Boxes</title>
+  <link rel="stylesheet" href="styles.css">
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 100%;
+  }
+  
+  .boxx {
+    
+  }
+  
+  /* Media Query for Mobile */
+  @media (max-width: 768px) {
+    .box {
+      width: 100%;
+    }
+  }
+</style>  
+
+
+<style>
+  body{
+      
+     
+    }
+    .box {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.5s;
+      z-index: 1;
+     }
+     
+     .box::before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 50px;
+      width: 50%;
+      height: 100%;
+      text-decoration: none;
+      background: #fff;
+      border-radius: 8px;
+      transform: skewX(15deg);
+      transition: 0.5s;
+     }
+     
+     .box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50;
+      width: 50%;
+      height: 100%;
+      background: #fff;
+      border-radius: 8px;
+      transform: skewX(15deg);
+      transition: 0.5s;
+      filter: blur(30px);
+     }
+     
+     .box:hover:before,
+     .box:hover:after {
+      transform: skewX(0deg) scaleX(1.3);
+     }
+     
+     .box:before,
+     .box:after {
+      background: linear-gradient(315deg, #ffbc00, #ff0058)
+     }
+     
+     .box span {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+      pointer-events: none;
+     }
+     
+     .box span::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: 0.1s;
+      animation: animate 2s ease-in-out infinite;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08)
+     }
+     
+     .box span::before {
+      top: -40px;
+      left: 40px;
+      width: 50px;
+      height: 50px;
+      opacity: 1;
+     }
+     
+     .box span::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: 0.5s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      animation-delay: -1s;
+     }
+     
+     .box span:after {
+      bottom: -40px;
+      right: 40px;
+      width: 50px;
+      height: 50px;
+      opacity: 1;
+     }
+     
+     .box .content {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1;
+      transform: 0.5s;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+     }
+     
+     .box .content h2 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 10px;
+     }
+
+
+
+
+
+
+
+
+
+
+     {% comment %} seconf  {% endcomment %}
+
+     .card {
+      width: 450px;
+      height: 254px;
+      transition: all 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .card-inner {
+      width: inherit;
+      height: inherit;
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      display: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-inner img{
+      border-radius:10px;
+    }
+    
+    .card:hover {
+      transform: scale(1.04) rotate(1deg);
+    }
+    
+    .circle {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(#b0e633, #53ef7d);
+      border-radius: 50%;
+      position: absolute;
+      animation: move-up6 2s ease-in infinite alternate-reverse;
+    }
+    
+    .circle:nth-child(1) {
+      top: -25px;
+      left: -25px;
+    }
+    
+    .circle:nth-child(2) {
+      bottom: -25px;
+      right: -25px;
+      animation-name: move-down1;
+    }
+    
+    @keyframes move-up6 {
+      to {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @keyframes move-down1 {
+      to {
+        transform: translateY(10px);
+      }
+    }
+</style>
+
+<style>
+  body{
+      margin:0px;
+      background-color:whitesmoke;
+    }
+    #main{
+      height:500px;
+      width:300px;
+      background:white;
+      box-shadow: 15px 15px 15px rgba(0,0,0,.1);
+      border-radius: 25px;
+      position: relative;
+      overflow: hidden;
+      top:0px;
+      left:50%;
+      transform:translateX(-50%);
+    }
+   
+    @keyframes anim {
+      0%{
+        transform: rotate(20deg);
+        top:50px;
+      }
+      90%{
+        transform: rotate(10deg);
+        top:80px;
+      }
+      100%{
+        transform: rotate(0deg);
+        top:120px;
+      }
+    }
+    @keyframes anim2 {
+      0%{
+        transform: rotate(0deg);
+        top:120px;
+        transform-origin: center center;
+      }
+      100%{
+        transform: rotate(-8deg);
+        top:120px;
+        transform-origin: left bottom;
+      }
+    }
+    @keyframes anim3 {
+      0%{
+        transform: rotate(-8deg);
+        top:120px;
+        transform-origin: left bottom;
+      }
+      70%{
+        transform: rotate(5deg);
+        top:120px;
+        transform-origin: right bottom;
+      }
+      100%{
+        transform: rotate(0deg);
+        top:120px;
+        transform-origin: center center;
+      }
+    }
+    #box{
+      height: 150px;
+      width: 100%;
+      background:linear-gradient(45deg,#ee9ca7,#ffdde1);
+      position: absolute;
+      top:0px;
+      border-radius: 25px;
+    }
+    #msg1,
+    #msg2,
+    #msg4,
+    #msg3{
+      font-family: arial;
+      font-size: 12px;
+      color:#121212;
+      font-weight: 600;
+      position: absolute;
+      top:250px;
+      left:25px;
+      opacity: 0;
+      animation: anim4 .5s forwards linear 0.6s;
+    }
+    #msg2{
+      color:gray;
+      font-weight: normal;
+      top:300px;
+      left:20px;
+      animation: anim5 .5s forwards linear 0.7s;
+    }
+    #msg4{
+      color:gray;
+      font-weight: normal;
+      top:330px;
+      left:20px;
+      animation: anim5 .5s forwards linear 0.7s;
+    }
+    @keyframes anim4 {
+      from{
+        left:25px;
+        opacity: 0;
+      }
+      to{
+        left:30px;
+        opacity: 1;
+      }
+    }
+    @keyframes anim5 {
+      from{
+        left:20px;
+        opacity: 0;
+      }
+      to{
+        left:30px;
+        opacity: 1;
+      }
+    }
+    #line{
+      height: 2px;
+      width:0px;
+      background-color: silver;
+      position: absolute;
+      top:360px;
+      left:25px;
+      animation: anim6 0.9s forwards linear 0.7s;
+    }
+    @keyframes anim6 {
+      from{
+        width:0px;
+      }
+      to{
+        width:250px;
+      }
+    }
+    #msg3{
+      color:gray;
+      font-weight: normal;
+      top:380px;
+      left:15px;
+      animation: anim7 .5s forwards linear 0.9s;
+    }
+    @keyframes anim7 {
+      from{
+        left:15px;
+        opacity: 0;
+      }
+      to{
+        left:30px;
+        opacity: 1;
+      }
+    }
+    #price,
+    #price2{
+      font-family: arial;
+      font-size: 12px;
+      position: absolute;
+      opacity: 0;
+      color:gray;
+      top:330px;
+      left:220px;
+      animation: anim8 .5s forwards linear 0.7s;
+    }
+    #price4{
+      font-family: arial;
+      font-size: 12px;
+      position: absolute;
+      opacity: 0;
+      color:gray;
+      top:300px;
+      left:220px;
+      animation: anim8 .5s forwards linear 0.7s;
+    }
+    @keyframes anim8 {
+      from{
+        left:220px;
+        opacity: 0;
+      }
+      to{
+        left:230px;
+        opacity: 1;
+      }
+    }
+    #price2{
+      font-weight: bold;
+      font-size: 14px;
+      top:380px;
+      animation: anim8 .5s forwards linear 0.9s;
+    }
+    button{
+      position: absolute;
+      top:500px;
+      left:0px;
+      border:none;
+      outline:none;
+      width:calc(100% - 40px);
+      height: 40px;
+      border-radius: 10px;
+      background:linear-gradient(45deg,#ee9ca7,#ffdde1);
+      font-family: arial;
+      font-size: 14px;
+      color:white;
+      margin: 0px 0px 0px 20px;
+      animation: anim9 1s forwards linear .8s;
+    }
+    @keyframes anim9 {
+      from{
+        top:500px;
+      }
+      to{
+        top:430px;
+      }
+    }
+    
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="boxx" style="margin-top:250px;" style="margin-bottom:50px;">
+      <div class="card">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="card-inner" >
+       
+
+          {% if project.files %}
+          {% if project.files.name %}
+              {% if project.files.name|lower|slice:"-3:" in ".jpg.jpeg.png.gif" %}
+                  <!-- Render image -->
+                  <p>Project Image:</p>
+                  <img src="/media/{{ project.files.name }}" alt="Project Image" height="100" width="100">
+              {% elif project.files.name|lower|slice:"-4:" in ".pdf.doc.docx.txt" %}
+                  <!-- Render link to download document -->
+                  <p>Project Document: <a href="{{ project.files.name }}" target="_blank">Download Document</a></p>
+              {% else %}
+                  <!-- Render a generic link to the file -->
+                  <p>Project File: <a href="{{ project.files.name }}" target="_blank">View File</a></p>
+              {% endif %}
+          {% else %}
+              <p>Project file exists, but URL not found.</p>
+          {% endif %}
+      {% endif %}
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="box " style="margin-top:150px;">
+
+        <div class="box">
+        <span></span>
+        <div class="content">
+          <div id="main">
+        
+            <div id="box">
+              
+            </div>
+            <div id="info">
+              <div id="msg1">Your Order</div>
+
+              <div id="msg2">Freelancer</div>
+              <div id="price">{{username}}</div>
+
+              <div id="msg4">File Name</div>
+              <div id="price4">{{ project.files.name }}0</div>
+
+              <div id="line"></div>
+
+              <div id="msg3">Cost</div>
+              <div id="price2">{{ project.cost }}</div>
+
+            </div>
+            <button  id="rzp-button1" >PAY NOW</button>
+          </div>
+
+        </div>
+        </div>
+    </div>
+  </div>
+
+
+  
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+  var options = {
+      "key": "rzp_test_6NQbuP8I13BFzL", // Enter the Key ID generated from the Dashboard
+      "amount": "{{payment_amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Amit Singh ",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": "{{payment_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response){
+        var title = "{{ project.title }}";
+          
+        payment_id= "{{ payment_id }}";
+
+
+                  // Assuming title and payment_id are already defined
+          
+
+          window.location.href = 'http://127.0.0.1:8000/download/' + title + '/?order_id=' + payment_id;
+
+         
+      },
+      "prefill": {
+          "name": "Gaurav Kumar",
+          "email": "gaurav.kumar@example.com",
+          "contact": "9000090000"
+      },
+      "notes": {
+          "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+          "color": "#3399cc"
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.on('payment.failed', function (response){
+          alert(response.error.code);
+          alert(response.error.description);
+          alert(response.error.source);
+          alert(response.error.step);
+          alert(response.error.reason);
+          alert(response.error.metadata.order_id);
+          alert(response.error.metadata.payment_id);
+  });
+  document.getElementById('rzp-button1').onclick = function(e){
+      rzp1.open();
+      e.preventDefault();
+  }
+  </script>
+</body>
+</html>

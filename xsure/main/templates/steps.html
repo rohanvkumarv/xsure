@@ -1,0 +1,88 @@
+<div id="step1" style="display: none;">
+                     
+    <h1 class="modal__title">Details</h1>
+    
+    <div class="form-container" style="padding: 1rem 1.25rem;">
+       <form class="form" id="formStep1" method="POST">
+    {% csrf_token %}
+        <div class="form-group">
+            <input class="myinputs" type="text" id="file-name-field" name="file_name" placeholder="File Name" required="">
+            <input class="myinputs" type="text" id="email" name="email" placeholder="Cost" required="">
+            <input class="myinputs" type="text" id="message" name="message" placeholder="Message" required="">
+
+            <div class="getwd myinputs">
+                <div>Allow Without Pay</div>
+                <div class="radio-inputs">
+                    <label class="radio">
+                        <input type="radio" name="radio" checked="">
+                        <span class="name">No</span>
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="radio">
+                        <span class="name">Yes</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" onclick="nextStep(1)" class="modal__button modal__button-width">Get A Link</button>
+</form>
+</div>
+
+<div id="step2" style="display: none;">
+<form class="form" id="formStep2" method="POST">
+    {% csrf_token %}
+    <h1 class="modal__title">Details</h1>
+    
+    <div class="form-container" style="padding: 1rem 1.25rem;">
+        <div class="form-group">
+            <input class="myinputs" type="text" name="phone_number" placeholder="Phone number" required="">
+        </div>
+    </div>
+
+    <button type="button" onclick="nextStep(2)" class="modal__button modal__button-width">Get A Link</button>
+</form>
+</div>
+
+<div id="step3" style="display: none;">
+<form class="form" id="formStep3" method="POST">
+    {% csrf_token %}
+    <h1 class="modal__title">Details</h1>
+    
+    <div class="form-container" style="padding: 1rem 1.25rem;">
+        <div class="form-group">
+            <input class="myinputs" type="text" name="otp" placeholder="Enter OTP" required="">
+        </div>
+    </div>
+
+    <button type="submit"  value="Submit" class="modal__button modal__button-width">Submit</button>
+</form>
+</div>
+<script>
+let currentStep = 1;
+
+function showStep(step) {
+  document.getElementById('step' + step).style.display = 'block';
+}
+
+function hideStep(step) {
+  document.getElementById('step' + step).style.display = 'none';
+}
+
+function nextStep() {
+  if (currentStep < 3) {
+      hideStep(currentStep);
+      currentStep++;
+      showStep(currentStep);
+  } else if (currentStep === 3) {
+      // If on the third step, submit the form
+      document.getElementById('formStep3').submit();
+  }
+}
+
+// Show the first step initially
+document.addEventListener('DOMContentLoaded', function() {
+  showStep(currentStep);
+});
+</script>

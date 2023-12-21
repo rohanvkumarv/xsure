@@ -1,0 +1,605 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Boxes</title>
+  <link rel="stylesheet" href="styles.css">
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 100%;
+  }
+  
+  .boxx {
+    
+  }
+  
+  /* Media Query for Mobile */
+  @media (max-width: 768px) {
+    .box {
+      width: 100%;
+    }
+  }
+</style>  
+
+
+<style>
+  body{
+      
+     
+    }
+    .box {
+      position: relative;
+      width: 400px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.5s;
+      z-index: 1;
+     }
+     
+     .box::before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 50px;
+      width: 50%;
+      height: 100%;
+      text-decoration: none;
+      background: #fff;
+      border-radius: 8px;
+      transform: skewX(15deg);
+      transition: 0.5s;
+     }
+     
+     .box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50;
+      width: 50%;
+      height: 100%;
+      background: #fff;
+      border-radius: 8px;
+      transform: skewX(15deg);
+      transition: 0.5s;
+      filter: blur(100px);
+     }
+     
+     .box:hover:before,
+     .box:hover:after {
+      transform: skewX(0deg) scaleX(1.3);
+     }
+     
+     .box:before,
+     .box:after {
+      {% comment %} background: linear-gradient(315deg, #ffbc00, #ff0058) {% endcomment %}
+      background: linear-gradient(744deg,#af40ff,#5b42f3 60%,#00ddeb);
+     }
+     
+     .box span {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+      pointer-events: none;
+     }
+     
+     .box span::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: 0.1s;
+      animation: animate 2s ease-in-out infinite;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08)
+     }
+     
+     .box span::before {
+      top: -40px;
+      left: 40px;
+      width: 50px;
+      height: 50px;
+      opacity: 1;
+     }
+     
+     .box span::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: 0.5s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      animation-delay: -1s;
+     }
+     
+     .box span:after {
+      bottom: -40px;
+      right: 40px;
+      width: 50px;
+      height: 50px;
+      opacity: 1;
+     }
+     
+   
+     
+     .box .content h2 {
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 10px;
+     }
+
+
+
+
+
+
+
+
+
+
+     {% comment %} seconf  {% endcomment %}
+
+     .card {
+      width: 450px;
+      height: 254px;
+      transition: all 0.2s;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .card-inner {
+      width: inherit;
+      height: inherit;
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.25);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      display: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-inner img{
+      border-radius:10px;
+    }
+    
+    .card:hover {
+      transform: scale(1.04) rotate(1deg);
+    }
+    
+    .circle {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(#b0e633, #53ef7d);
+      border-radius: 50%;
+      position: absolute;
+      animation: move-up6 2s ease-in infinite alternate-reverse;
+    }
+    
+    .circle:nth-child(1) {
+      top: -25px;
+      left: -25px;
+    }
+    
+    .circle:nth-child(2) {
+      bottom: -25px;
+      right: -25px;
+      animation-name: move-down1;
+    }
+    
+    @keyframes move-up6 {
+      to {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @keyframes move-down1 {
+      to {
+        transform: translateY(10px);
+      }
+    }
+</style>
+
+<style>
+  body{
+      margin:0px;
+      background-color:whitesmoke;
+    }
+    #main{
+      height:500px;
+      width:400px!important;
+
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+
+      box-shadow: 15px 15px 15px rgba(0,0,0,.1);
+      border-radius: 25px;
+      position: relative;
+      overflow: hidden;
+      top:0px;
+      left:50%;
+      transform:translateX(-50%);
+    }
+   
+    @keyframes anim {
+      0%{
+        transform: rotate(20deg);
+        top:50px;
+      }
+      90%{
+        transform: rotate(10deg);
+        top:80px;
+      }
+      100%{
+        transform: rotate(0deg);
+        top:120px;
+      }
+    }
+    @keyframes anim2 {
+      0%{
+        transform: rotate(0deg);
+        top:120px;
+        transform-origin: center center;
+      }
+      100%{
+        transform: rotate(-8deg);
+        top:120px;
+        transform-origin: left bottom;
+      }
+    }
+    @keyframes anim3 {
+      0%{
+        transform: rotate(-8deg);
+        top:120px;
+        transform-origin: left bottom;
+      }
+      70%{
+        transform: rotate(5deg);
+        top:120px;
+        transform-origin: right bottom;
+      }
+      100%{
+        transform: rotate(0deg);
+        top:120px;
+        transform-origin: center center;
+      }
+    }
+    #box{
+      height: 150px;
+      width: 100%;
+      background: linear-gradient(744deg,#af40ff,#5b42f3 60%,#00ddeb);
+      position: absolute;
+      top:0px;
+      border-radius: 25px;
+    }
+    #msg1,
+    #msg2,
+    #msg4,
+    #msg3{
+      font-family: arial;
+      font-size: 12px;
+      color:black;
+      font-weight: 600;
+      position: absolute;
+      top:250px;
+      left:25px;
+      opacity: 0;
+      animation: anim4 .5s forwards linear 0.6s;
+    }
+    #msg2{
+      color:black;
+      font-weight: normal;
+      top:300px;
+      left:20px;
+      animation: anim5 .5s forwards linear 0.7s;
+    }
+    #msg4{
+    color:black;
+      font-weight: normal;
+      top:330px;
+      left:20px;
+      animation: anim5 .5s forwards linear 0.7s;
+    }
+    @keyframes anim4 {
+      from{
+        left:25px;
+        opacity: 0;
+      }
+      to{
+        left:30px;
+        opacity: 1;
+      }
+    }
+    @keyframes anim5 {
+      from{
+        left:20px;
+        opacity: 0;
+      }
+      to{
+        left:30px;
+        opacity: 1;
+      }
+    }
+    #line{
+      height: 2px;
+      width:12px;
+      background-color: silver;
+      position: absolute;
+      top:360px;
+      left:25px;
+      animation: anim6 0.9s forwards linear 0.7s;
+    }
+    @keyframes anim6 {
+      from{
+        width:0px;
+      }
+      to{
+        width:250px;
+      }
+    }
+    #msg3{
+        color:black;
+      font-weight: normal;
+      top:380px;
+      left:15px;
+      animation: anim7 .5s forwards linear 0.9s;
+    }
+    @keyframes anim7 {
+      from{
+        left:15px;
+        opacity: 0;
+      }
+      to{
+        left:30px;
+        opacity: 1;
+      }
+    }
+    #price,
+    #price2{
+      font-family: arial;
+      font-size: 12px;
+      position: absolute;
+      opacity: 0;
+      color:black;
+      top:330px;
+      left:220px;
+      animation: anim8 .5s forwards linear 0.7s;
+    }
+    #price4{
+      font-family: arial;
+      font-size: 12px;
+      position: absolute;
+      opacity: 0;
+      color:black;
+      top:300px;
+      z-index: 5;
+     
+      animation: anim8 .5s forwards linear 0.7s;
+    }
+    @keyframes anim8 {
+      from{
+        left:220px;
+        opacity: 0;
+      }
+      to{
+        left:230px;
+        opacity: 1;
+      }
+    }
+    #price2{
+      font-weight: bold;
+      font-size: 14px;
+      top:380px;
+      animation: anim8 .5s forwards linear 0.9s;
+    }
+    button{
+      position: absolute;
+      top:500px;
+      left:0px;
+      border:none;
+      outline:none;
+      width:calc(100% - 40px);
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(744deg,#af40ff,#5b42f3 60%,#00ddeb);
+      font-family: arial;
+      font-size: 14px;
+      color:white;
+      margin: 0px 0px 0px 20px;
+      animation: anim9 1s forwards linear .8s;
+    }
+    @keyframes anim9 {
+      from{
+        top:500px;
+      }
+      to{
+        top:430px;
+      }
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px ;
+        
+      }
+      
+      .responsive-image {
+        max-width: 100%;
+        height: auto;
+        margin: 20px ;
+        
+        
+      }
+    
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="boxx" style="margin-top:250px;" style="margin-bottom:50px;">
+      <div class="card">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="card-inner" >
+            <div class="image-container">
+                {% if project.files %}
+                {% if project.files.name %}
+                    {% with file_extension=project.files.name|slice:"-4:"|lower %}
+            
+                        {% if file_extension in ".jpg.jpeg.png.gif" %}
+                            <!-- Render image -->
+                            <img src="{{ project.files.url }}" alt="Project Image" class="responsive-image">
+            
+                        {% elif file_extension in ".pdf.doc.docx.txt" %}
+                            <!-- Render link to download document -->
+                            <p>Project Document: <a href="{{ project.files.url }}" target="_blank">Download Document</a></p>
+            
+                        {% elif file_extension in ".mp3.wav.ogg" %}
+                            <!-- Render audio player -->
+                            <audio controls>
+                                <source src="{{ project.files.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+            
+                        {% else %}
+                            <!-- Render a generic link to the file -->
+                            <p>Project File: <a href="{{ project.files.url }}" target="_blank">View File</a></p>
+                        {% endif %}
+            
+                    {% endwith %}
+                {% else %}
+                    <p>Project file exists, but URL not found.</p>
+                {% endif %}
+            {% endif %}
+              </div>
+       
+
+       
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="box " style="margin-top:150px;">
+
+        <div class="box">
+        <span></span>
+        <div class="content">
+          <div id="main">
+        
+            <div id="box">
+              
+            </div>
+            <div id="info">
+              <div id="msg1">Your Order</div>
+
+              <div id="msg2">Freelancer</div>
+              <div id="price">{{user}}</div>
+
+              <div id="msg4">File Name</div>
+              <div id="price4">{{ project.files.name }}</div>
+
+              <div id="line"></div>
+
+              <div id="msg3">Cost</div>
+              <div id="price2">{{ project.cost }}</div>
+
+            </div>
+            <button  id="rzp-button1" >PAY NOW</button>
+          </div>
+
+        </div>
+        </div>
+    </div>
+  </div>
+
+
+  
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+  var options = {
+      "key": "rzp_test_6NQbuP8I13BFzL", // Enter the Key ID generated from the Dashboard
+      "amount": "{{payment_amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Amit Singh ",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": "{{payment_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response){
+        var title = "{{ project.title }}";
+          
+        payment_id= "{{ payment_id }}";
+
+
+                  // Assuming title and payment_id are already defined
+          
+
+          window.location.href = 'http://127.0.0.1:8000/download/' + title + '/?order_id=' + payment_id;
+
+         
+      },
+      "prefill": {
+          "name": "Gaurav Kumar",
+          "email": "gaurav.kumar@example.com",
+          "contact": "9000090000"
+      },
+      "notes": {
+          "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+          "color": "#3399cc"
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.on('payment.failed', function (response){
+          alert(response.error.code);
+          alert(response.error.description);
+          alert(response.error.source);
+          alert(response.error.step);
+          alert(response.error.reason);
+          alert(response.error.metadata.order_id);
+          alert(response.error.metadata.payment_id);
+  });
+  document.getElementById('rzp-button1').onclick = function(e){
+      rzp1.open();
+      e.preventDefault();
+  }
+  </script>
+</body>
+</html>

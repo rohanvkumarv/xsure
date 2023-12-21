@@ -1,0 +1,134 @@
+    {% comment %} <script>
+              // Function to handle file selection for both input fields
+              function handleFileSelect(file, inputNumber) {
+                const fileInput = document.getElementById(`file-input-${inputNumber}`);
+                const fileNameInput = document.getElementById('file-name');
+          
+                // Set the selected file in the file input
+                fileInput.files = file;
+                
+                // Set the selected file name in the text input field
+                if (file.length > 0) {
+                  fileNameInput.value = file[0].name;
+                  
+                  if (inputNumber === 1) {
+                    openPopup(); // Open the popup form only if the first input field is used
+                    const fileInput2 = document.getElementById('file-input-2');
+                    fileInput2.files = file; // Set the same file in the second input field
+                  }
+                } else {
+                  fileNameInput.value = '';
+                }
+              }
+          
+              // Function to handle file drop for the drop area
+              function handleFileDrop(event, inputNumber) {
+                event.preventDefault();
+                const files = event.dataTransfer.files;
+                handleFileSelect(files, inputNumber);
+              }
+          
+              // Event listeners for drag and drop area
+              const dropArea = document.getElementById('drop-area');
+              dropArea.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dropArea.style.border = '2px dashed #aaa';
+              });
+              dropArea.addEventListener('dragleave', (event) => {
+                event.preventDefault();
+                dropArea.style.border = '2px dashed #ccc';
+              });
+              dropArea.addEventListener('drop', (event) => {
+                handleFileDrop(event, 1);
+              });
+          
+              // Event listener for file input change
+              const fileInput1 = document.getElementById('file-input-1');
+              fileInput1.addEventListener('change', (event) => {
+                const files = event.target.files;
+                handleFileSelect(files, 1);
+              });
+          
+              // Function to open the popup form
+              function openPopup() {
+                const popupForm = document.getElementById('popup-form');
+                popupForm.style.display = 'block';
+              }
+          
+              // Function to close the popup form
+              function closePopup() {
+                const popupForm = document.getElementById('popup-form');
+                popupForm.style.display = 'none';
+              }
+          
+              // Event listener for file input in the popup form
+              const fileInput2 = document.getElementById('file-input-2');
+              fileInput2.addEventListener('change', (event) => {
+                const files = event.target.files;
+                handleFileSelect(files, 2);
+              });
+            </script> {% endcomment %}
+
+
+
+          {% comment %} <script>
+            function dropHandler(event) {
+              event.preventDefault();
+              const dt = event.dataTransfer;
+              const files = dt.files || event.target.files;
+            
+              handleFiles(files);
+              showModal();
+            }
+            
+            function browseFiles() {
+              const fileInput = document.createElement('input');
+              fileInput.type = 'file';
+              fileInput.onchange = function (event) {
+                const files = event.target.files;
+                handleFiles(files);
+                showModal();
+              };
+              fileInput.click();
+            }
+            
+            function showModal() {
+              const modalContainer = document.getElementById('modal-container');
+            
+              if (modalContainer) {
+                modalContainer.classList.add('show-modal');
+              }
+            }
+            
+            function dragOverHandler(event) {
+              event.preventDefault();
+            }
+            
+            // Close Modal function
+            const closeBtn = document.querySelectorAll('.close-modal');
+            
+            function closeModal() {
+              const modalContainer = document.getElementById('modal-container');
+              modalContainer.classList.remove('show-modal');
+            }
+            closeBtn.forEach(c => c.addEventListener('click', closeModal));
+            
+            function fileInputChange(event) {
+              const files = event.target.files;
+              handleFiles(files);
+            }
+            
+            function handleFiles(files) {
+              // Handle the files here without appending file names to the DOM
+              for (let i = 0; i < files.length; i++) {
+                const fileName = files[i].name;
+                console.log('File:', fileName);
+            
+                // Set file name as form field value (if needed)
+                document.getElementById('file-name-field').value = fileName;
+            
+                // You can perform operations with each file, for example, upload or display
+              }
+            }
+            
+          </script> {% endcomment %}
